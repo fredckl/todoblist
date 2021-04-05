@@ -1,19 +1,14 @@
 <template>
-  <p class="todos-count font-handwriting text-2xl">Nombre de tâches à réaliser : {{todosCount}}</p>
+  <p class="todos-count font-handwriting text-2xl">Nombre de tâches à réaliser : {{openTodos.length}}</p>
 </template>
 
 <script>
-import { compose, length, pathOr } from 'rambda'
+import { mapGetters } from 'vuex'
 
 export default {
   name: "todos-count",
   computed: {
-    todosCount () {
-      return compose(
-        length,
-        pathOr([], ['state', 'todos', 'todos'])
-      )(this.$store)
-    }
+    ...mapGetters(['openTodos'])
   }
 }
 </script>

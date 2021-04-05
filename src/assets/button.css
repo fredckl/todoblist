@@ -1,5 +1,5 @@
 .btn {
-  @apply text-white py-1 px-2 rounded h-8 focus:outline-none;
+  @apply border border-transparent text-white py-1 px-2 rounded h-8 focus:outline-none;
   transition: all 0.3s;
 
   &--primary {
@@ -20,5 +20,9 @@
 
   &--warning {
     @apply bg-yellow-400 hover:bg-yellow-300;
+  }
+
+  &--outline--primary {
+    @apply border border-purple-400 text-purple-400 bg-white hover:bg-purple-400 hover:text-white;
   }
 }

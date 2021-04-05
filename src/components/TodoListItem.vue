@@ -11,6 +11,12 @@
           <p v-else class="text-gray-400">aucune description</p>
 
           <div class="actions">
+            <f-button v-if="archived === true" @click="handleUnarchive" btnType="button" btnClass="secondary">
+              <icon name="archive" size="1rem"/>
+            </f-button>
+            <f-button v-if="archived !== true" @click="handleArchive" btnType="button" btnClass="warning">
+              <icon name="archive" size="1rem"/>
+            </f-button>
             <f-button @click="showEdit = true" btnType="button">
               <icon name="pencil-alt" size="1rem"/>
             </f-button>
@@ -32,6 +38,7 @@
 import {DateTime} from 'luxon';
 import TodoQuickEdit from './TodoQuickEdit';
 import FButton from './FButton.vue';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'todo-list-item',
@@ -53,6 +60,9 @@ export default {
     },
     description: {
       type: String
+    },
+    archived: {
+      type: Boolean
     }
   },
   data () {
@@ -67,11 +77,21 @@ export default {
   },
 
   methods: {
+    ...mapActions([
+      'archiveTodo',
+      'unarchiveTodo'
+    ]),
     cancel () {
       this.showEdit = false;
     },
     handleRemove () {
       this.$emit('onRemove', this.id)
+    },
+    handleArchive () {
+      this.archiveTodo(this.id);
+    },
+    handleUnarchive () {
+      this.unarchiveTodo(this.id);
     }
   }
 }

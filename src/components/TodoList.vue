@@ -1,13 +1,18 @@
 <template>
   <div class="list-todo">
     <todos-count/>
-    <ul v-if="reorderTodos.length">
+    <todo-filter
+      @showOpen="filterMode = 'showOpen'"
+      @showClosed="filterMode = 'showClosed'"
+      @showAll="filterMode = 'showAll'"/>
+    <ul v-if="todos.length">
       <todo-list-item
-      v-for="({id, label, when, description}) in reorderTodos"
+      v-for="({id, label, when, description , archived}) in todos"
       :key="id"
       :label="label"
       :id="id"
       :when="when"
+      :archived='archived'
       :description="description"
       @onRemove="handleRemoveItem"
     />
@@ -21,20 +26,36 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import TodoListItem from './TodoListItem';
 import ConfirmDialogue from './ConfirmDialogue';
 import TodosCount from './TodosCount';
+import TodoFilter from './TodoFilter.vue';
+
 export default {
   name: 'todo-list',
   components: {
     TodoListItem,
     ConfirmDialogue,
-    TodosCount
+    TodosCount,
+    TodoFilter
+  },
+  data () {
+    return {
+      filterMode: 'showOpen'
+    }
   },
   computed: {
-    reorderTodos () {
-      return [...this.$store.state.todos.todos].reverse();
+    ...mapGetters(['openTodos', 'allTodos', 'closedTodos']),
+    todos () {
+      switch (this.filterMode) {
+        case 'showAll':
+          return this.allTodos;
+        case 'showClosed':
+          return this.closedTodos;
+        default:
+          return this.openTodos;
+      }
     }
   },
   methods: {

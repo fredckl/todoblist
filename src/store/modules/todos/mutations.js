@@ -1,12 +1,19 @@
 import { compose, not, propEq, filter, prop, map, when, mergeLeft } from 'rambda';
-import {ADD_TODO_MUTATION, REMOVE_TODO_MUTATION, UPDATE_TODO_MUTATION} from './mutation-types';
+import {
+    ADD_TODO_MUTATION,
+    REMOVE_TODO_MUTATION,
+    UPDATE_TODO_MUTATION,
+    ARCHIVE_TODO_MUTATION,
+    UNARCHIVE_TODO_MUTATION
+} from './mutation-types';
 
 
 const defaultTodoValues = {
   id: null,
   label: null,
   when: null,
-  description: null
+  description: null,
+  archived: false
 }
 
 export default {
@@ -45,5 +52,39 @@ export default {
   [REMOVE_TODO_MUTATION] (state, todoId) {
     const notPropEq = compose(not, propEq('id', todoId));
     state.todos = filter(notPropEq)(state.todos)
+  },
+
+  /**
+   * Archived todo
+   * @param {object} state
+   * @param {string} todoId
+   */
+  [ARCHIVE_TODO_MUTATION] (state, todoId) {
+    state.todos = compose(
+      map(
+      when(
+        propEq('id', todoId),
+        mergeLeft({archived: true})
+        )
+      ),
+      prop('todos')
+    )(state)
+  },
+
+  /**
+   * Unarchived todo
+   * @param {object} state
+   * @param {string} todoId
+   */
+  [UNARCHIVE_TODO_MUTATION] (state, todoId) {
+    state.todos = compose(
+      map(
+      when(
+        propEq('id', todoId),
+        mergeLeft({archived: false})
+        )
+      ),
+      prop('todos')
+    )(state)
   }
 }

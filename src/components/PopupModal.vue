@@ -29,20 +29,16 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .fade-enter-active,
-  .fade-leave-active {
-      transition: opacity 0.3s;
-  }
-  .fade-enter,
-  .fade-leave-to {
-      opacity: 0;
-  }
   .modal {
     position: fixed;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
 
     .overlay {
       position: fixed;
@@ -62,7 +58,6 @@ export default {
       margin-top: -100px;
       position: relative;
       border-radius: 5px;
-      padding: 1rem;
       @media screen and (max-width: 600px) {
         width: 100%;
       }

@@ -1,0 +1,7 @@
+.form-input {
+  @apply border rounded py-1 px-2 w-full mb-2 h-8 focus:outline-none focus:border-indigo-500;
+}
+
+textarea.form-input {
+  height: auto;
+}

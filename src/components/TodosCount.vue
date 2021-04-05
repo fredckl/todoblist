@@ -1,5 +1,5 @@
 <template>
-  <p class="todos-count">Nombre de tâches à réaliser : {{todosCount}}</p>
+  <p class="todos-count font-handwriting text-2xl">Nombre de tâches à réaliser : {{todosCount}}</p>
 </template>
 
 <script>

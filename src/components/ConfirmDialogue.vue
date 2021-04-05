@@ -1,22 +1,26 @@
 <template>
   <popup-modal ref="popup">
-    <header>
-      <h1 v-if="title && title.length">{{title}}</h1>
-    </header>
-    <p>{{message}}</p>
-    <footer>
-      <button @click="cancel">{{cancelText}}</button>
-      <button @click="confirm">{{confirmText}}</button>
-    </footer>
+    <section class="flex flex-col h-full content-between w-full" style="height: 200px;">
+      <header class="border-b p-2 mb-auto font-bold text-2xl">
+        <h1 v-if="title && title.length">{{title}}</h1>
+      </header>
+      <p class="p-2 mb-auto">{{message}}</p>
+      <footer class="border-t p-2 mt-auto flex justify-end footer-actions">
+        <f-button @click="cancel" btnClass="secondary">{{cancelText}}</f-button>
+        <f-button @click="confirm">{{confirmText}}</f-button>
+      </footer>
+      </section>
   </popup-modal>
 </template>
 
 <script>
+import FButton from './FButton.vue';
 import PopupModal from './PopupModal';
 export default {
   name: 'confirm-dialogue',
   components: {
-    PopupModal
+    PopupModal,
+    FButton
   },
   props: {
     message: String,
@@ -58,5 +62,9 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.footer-actions {
+  button {
+    margin-left: 1rem;
+  }
+}
 </style>

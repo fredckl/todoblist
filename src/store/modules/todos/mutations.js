@@ -1,6 +1,14 @@
 import { compose, not, propEq, filter, prop, map, when, mergeLeft } from 'rambda';
 import {ADD_TODO_MUTATION, REMOVE_TODO_MUTATION, UPDATE_TODO_MUTATION} from './mutation-types';
 
+
+const defaultTodoValues = {
+  id: null,
+  label: null,
+  when: null,
+  description: null
+}
+
 export default {
   /**
    * Add new todo
@@ -8,7 +16,7 @@ export default {
    * @param {object} payload
    */
   [ADD_TODO_MUTATION] (state, payload) {
-    state.todos = [...state.todos, payload]
+    state.todos = [...state.todos, mergeLeft(payload, defaultTodoValues)]
   },
   /**
    * Update todo
@@ -25,6 +33,8 @@ export default {
         )),
       prop('todos')
       )(state);
+
+      console.log('=====>', state.todos, payload)
   },
 
   /**

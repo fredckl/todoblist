@@ -1,20 +1,21 @@
 <template>
   <div class="list-todo">
     <todos-count/>
-    <ul>
+    <ul v-if="reorderTodos.length">
       <todo-list-item
-      v-for="({id, label, when}) in reorderTodos"
+      v-for="({id, label, when, description}) in reorderTodos"
       :key="id"
       :label="label"
       :id="id"
       :when="when"
+      :description="description"
       @onRemove="handleRemoveItem"
     />
     </ul>
     <confirm-dialogue
       ref="confirmDialogue"
-      title="Confirmation d'action"
-      message="êtes-vous certain de vouloir supprimer cette élément ?"
+      title="Confirmez votre action"
+      message="êtes-vous certain-e de vouloir supprimer cette tâche ?"
     />
   </div>
 </template>
@@ -30,12 +31,6 @@ export default {
     TodoListItem,
     ConfirmDialogue,
     TodosCount
-  },
-  props: {
-    todos: {
-      type: Array,
-      default: () => ([])
-    }
   },
   computed: {
     reorderTodos () {

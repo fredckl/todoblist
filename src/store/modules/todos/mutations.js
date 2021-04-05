@@ -11,7 +11,7 @@ import {
 const defaultTodoValues = {
   id: null,
   label: null,
-  when: null,
+  createdAt: null,
   description: null,
   archived: false
 }

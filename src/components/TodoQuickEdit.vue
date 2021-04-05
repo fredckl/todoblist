@@ -16,7 +16,8 @@ import FButton from './FButton';
 const defaultValues = {
   id: null,
   label: null,
-  when: null
+  description: null,
+  createdAt: null
 }
 
 const fnData = idx => (key, data) => path([idx, key], data);
@@ -36,7 +37,7 @@ export default {
     todo: {
       id: String,
       label: String,
-      when: String,
+      createdAt: String,
       description: String
     }
   },
@@ -45,7 +46,7 @@ export default {
       todoData: {
         id: getProp('id', this),
         label: getProp('label', this),
-        when: getProp('when', this),
+        createdAt: getProp('createdAt', this),
         description: getProp('description', this)
       }
     }
@@ -65,11 +66,11 @@ export default {
         uuidv4
       )(getData('id', this));
     },
-    setWhen () {
+    setCreatedAt () {
       return when(
         isNil,
         () => DateTime.now().toString()
-      )(getData('when', this));
+      )(getData('createdAt', this));
     },
     handleSubmit () {
       const newData = {
@@ -82,7 +83,7 @@ export default {
       } else {
         this.addTodo(mergeLeft({
           id: this.setUuid(),
-          when: this.setWhen(),
+          createdAt: this.setCreatedAt(),
         }, newData));
         this.$set(this, 'todoData', {...defaultValues})
       }

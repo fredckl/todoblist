@@ -7,11 +7,11 @@
       @showAll="filterMode = 'showAll'"/>
     <ul v-if="todos.length">
       <todo-list-item
-      v-for="({id, label, when, description , archived}) in todos"
+      v-for="({id, label, createdAt, description , archived}) in todos"
       :key="id"
       :label="label"
       :id="id"
-      :when="when"
+      :createdAt="createdAt"
       :archived='archived'
       :description="description"
       @onRemove="handleRemoveItem"

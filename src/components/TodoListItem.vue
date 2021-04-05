@@ -26,7 +26,7 @@
           </div>
         </div>
         <div v-if="showEdit" class="todo-edit flex justify-between">
-          <todo-quick-edit :todo="{id, label, when, description}" @onSubmitted="cancel" />
+          <todo-quick-edit :todo="{id, label, createdAt, description}" @onSubmitted="cancel" />
           <f-button @click="cancel" btnType="button" btnClass="secondary">annuler</f-button>
         </div>
       </div>
@@ -55,7 +55,7 @@ export default {
       type: String,
       required: true
     },
-    when: {
+    createdAt: {
       type: String
     },
     description: {
@@ -72,7 +72,7 @@ export default {
   },
   computed: {
     addedAt () {
-      return DateTime.fromISO(this.when).toFormat('dd/MM/yyyy')
+      return DateTime.fromISO(this.createdAt).toFormat('dd/MM/yyyy')
     }
   },
 

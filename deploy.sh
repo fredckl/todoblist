@@ -3,6 +3,14 @@
 # abort on errors
 set -e
 
+yarn new-version
+
+PACKAGE_VERSION=$(cat package.json \
+  | grep version \
+  | head -1 \
+  | awk -F: '{ print $2 }' \
+  | sed 's/[",]//g')
+
 # build
 npm run build
 
@@ -23,3 +31,7 @@ git commit -m 'deploy'
 git push -f git@github.com:fredckl/todoblist.git master:gh-pages
 
 cd -
+
+# Push new tag
+git tag $PACKAGE_VERSION
+git push --follow-tags

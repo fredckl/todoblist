@@ -37,4 +37,5 @@ git add -A
 git commit -m "new version ${PAKAGE_VERSION}"
 # Push new tag
 git tag $PACKAGE_VERSION
-git push --follow-tags
+git push
+git push origin $PACKAGE_VERSION

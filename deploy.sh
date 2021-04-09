@@ -32,6 +32,9 @@ git push -f git@github.com:fredckl/todoblist.git master:gh-pages
 
 cd -
 
+# Added all files
+git add -A
+git commit -m "new version ${PAKAGE_VERSION}"
 # Push new tag
 git tag $PACKAGE_VERSION
 git push --follow-tags

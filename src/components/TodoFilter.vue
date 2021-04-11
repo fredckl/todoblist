@@ -2,15 +2,15 @@
   <div class="todo-filters my-3">
     <f-button
       @click="$emit('showOpen'); active = 'showOpen'"
-      :btnClass="active === 'showOpen' ? 'outline--primary' : 'primary'"
+      :btnClass="getActiveClass('showOpen')"
     >A faire</f-button>
     <f-button
       @click="$emit('showClosed'); active = 'showClosed'"
-      :btnClass="active === 'showClosed' ? 'outline--primary' : 'primary'"
+      :btnClass="getActiveClass('showClosed')"
     >Archivé-s</f-button>
     <f-button
       @click="$emit('showAll'); active = 'showAll'"
-     :btnClass="active === 'showAll' ? 'outline--primary' : 'primary'"
+     :btnClass="getActiveClass('showAll')"
     >Tous</f-button>
   </div>
 </template>
@@ -24,6 +24,11 @@ export default {
   data () {
     return {
       active: 'showOpen'
+    }
+  },
+  methods: {
+    getActiveClass (key) {
+      return this.active === key ? 'primary' : 'outline--primary';
     }
   }
 }

@@ -34,13 +34,14 @@ import TodosCount from './TodosCount';
 import TodoFilter from './TodoFilter.vue';
 import TodoSearch from './TodoSearch.vue';
 import { compose, prop, filter, includes, ifElse, toLower, values, map, pick, join } from 'rambda';
-import { isNilOrIsEmpty } from '../helpers/rambda-adjunct';
+import { isNilOrEmpty, isNotNilOrEmpty } from '../helpers/rambda-adjunct';
 
 const searchTodo = (q, fields = ['label', 'description']) => filter(
   compose(
     includes(toLower(q || '')),
     join(' '),
     map(toLower),
+    filter(isNotNilOrEmpty),
     values,
     pick(fields)
   )
@@ -76,7 +77,7 @@ export default {
           todos = this.openTodos;
       }
       return ifElse(
-        compose(isNilOrIsEmpty, prop('searchData')),
+        compose(isNilOrEmpty, prop('searchData')),
         prop('todos'),
         compose(searchTodo(this.searchData), prop('todos')),
       )({searchData: this.searchData, todos})

@@ -1,3 +1,4 @@
-import { anyPass, isEmpty, isNil } from "rambda";
+import { anyPass, compose, isEmpty, isNil, not } from 'rambda';
 
-export const isNilOrIsEmpty = anyPass([isNil, isEmpty])
+export const isNilOrEmpty = anyPass([isNil, isEmpty]);
+export const isNotNilOrEmpty = compose(not, isNilOrEmpty)

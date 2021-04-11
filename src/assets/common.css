@@ -1,5 +1,5 @@
 body {
-  background-color: #f2f2f2;
+  @apply bg-gray-100;
 }
 
 .page {
